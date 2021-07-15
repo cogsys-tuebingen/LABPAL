@@ -22,9 +22,8 @@ required = _RequiredParameter()
 
 # noinspection PyDefaultArgument
 class LabPal(Optimizer):
-    # noise_factor =  128/batch_size * dataset_size/40000
 
-    def __init__(self, params=required, mode="NSGD", noise_factor=1, update_step_adaptation=1.8, momentum=0.0,
+    def __init__(self, params=required, mode="NSGD", training_set_size=40000,batch_size=128, update_step_adaptation=1.8, momentum=0.0,
                  amount_steps_to_reuse_lr=1000, amount_batches_for_full_batch_loss_approximation=10,
                  batch_size_schedule=((0.0, 1), (75000.0, 2), (112500.0, 4)), amount_untrustworthy_initial_steps=400,
                  amount_of_former_lr_values_to_consider=25, parabolic_approximation_sample_step_size=0.01,
@@ -41,7 +40,9 @@ class LabPal(Optimizer):
 
         @param params: net.parameters()
         @param mode: either "SGD" or "NSGD" (=normalized SGD using the unit gradient).
-        @param noise_factor: factor applied to the batch sie in the learning rate schedule. If the gradient noise is higher as in the original problem of learning
+        @param training_set_size see batch_size
+        @param batch_size  together with training_set_size needed to determine the noise factor:
+        noise_factor: factor applied to the batch sie in the learning rate schedule. If the gradient noise is higher as in the original problem of learning
         a ResNet on Cifar10 with batch size 128. E.g. mult=10 if training with a batch size of 12 on Cifar10 or
         mult=236 if training on Imagenet with batch size 128 (since the dataset is roughly 236 times larger.)
         It is given by: noise_factor =  128/batch_size * dataset_size/40000
@@ -98,6 +99,8 @@ class LabPal(Optimizer):
         if not isinstance(update_step_adaptation, torch.Tensor):
             update_step_adaptation = torch.tensor(update_step_adaptation)
 
+        noise_factor=self._calculate_noise_factor(training_set_size,batch_size)
+
         self._params = list(params)
         self._tensorboard_logger = writer
         self._amount_of_optimizer_steps = -1
@@ -138,6 +141,7 @@ class LabPal(Optimizer):
         TRAINING = 0,
         APPROXIMATING_FULL_BATCH_LOSS = 1
 
+
     def get_closure(self, inputs, targets, model, loss_criterion, device):
         """
         Builds a closure that can be used with the step method.
@@ -170,6 +174,10 @@ class LabPal(Optimizer):
                 return loss_
 
         return Closure(self)
+
+    @staticmethod #
+    def _calculate_noise_factor(dataset_size,batch_size):
+        return 128/batch_size*dataset_size/40000
 
     @staticmethod #
     def _apply_factor_to_schedule(schedule, mult):

@@ -59,6 +59,13 @@ class BasicExperiment():
         else:
             opt_params["params"] = self.model.parameters()
 
+        if "training_set_size" in inspect.getfullargspec(opt_func).args:
+            opt_params["training_set_size"] = self.train_set_size
+
+        if "batch_size" in inspect.getfullargspec(opt_func).args:
+            opt_params["batch_size"] = self.batch_size
+
+
         if opt_func is SLS:
             opt_params["n_batches_per_epoch"] = self.steps_per_train_epoch
 
