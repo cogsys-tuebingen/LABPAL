@@ -1,12 +1,11 @@
 # The Large-Batch Parabolic Approximation Line Search (LABPAL) 
 Implementation of the optimizer introduced in [USING A ONE DIMENSIONAL PARABOLIC MODEL
 OF THE FULL-BATCH LOSS TO ESTIMATE LEARNING
-RATES DURING TRAINING](https://arxiv.org/pdf/2108.13880.pdf).
+RATES DURING TRAINING](https://arxiv.org/pdf/2108.13880.pdf).  
 The optimizer approximates the full-batch loss in negative gradient direction with a one-dimensional parabolic function.
 This approximation is done rarely and measured with a large batch size.  
 Then, the learning rate is derived form the position of the minimum of the approximation and reused for
- multiple steps.  
-Either SGD or normalized SGD (NSGD) using the unit gradient can be used. For SGD a learning rate is measured, whereas, for NSGD the step size is measured. 
+ multiple steps. Either SGD or normalized SGD (NSGD) using the unit gradient can be used. For SGD a learning rate is measured, whereas, for NSGD the step size is measured. 
 For simplification we will stick to the term learning rate in the following.   
 
 If you have any questions or suggestions, please do not hesitate to contact me:   
@@ -29,13 +28,12 @@ The training batch size is sampled iteratively and can thus be higher as the tec
 
  <table style="width:100%">
   <tr>
-      <td colspan="2" align=center  ><img src="plots/learning_rate.png" width="50%" ></td>
-      <td colspan="2" align=center  ><img src="plots/training_loss.png" width="50%" ></td>
+      <td><img src="plots/learning_rate.png" width="40%" ><img src="plots/training_loss.png" width="40%" ></td>
   </tr>
   <tr>
-    <td><img src="plots/validation_accuracy.png"  width="50%"></td>
-    <td><img src="plots/test_accuracy.png"  width="50%"></td>
+    <td><img src="plots/validation_accuracy.png"  width="40%"><img src="plots/test_accuracy.png"  width="40%"></td>
   </tr>
+Optimizer performance comparison of a MobileNet-V2 trained on CIFAR-100. 
 Optimizer performance comparison of a MobileNet-V2 trained on CIFAR-100. 
 
 </table> 
