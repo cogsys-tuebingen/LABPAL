@@ -36,6 +36,7 @@ The training batch size is sampled iteratively and, thus, can be higher as the t
     <td align=center><img src="plots/validation_accuracy.png"  width="80%"></td>
    <td align=center><img src="plots/test_accuracy.png"  width="84.1%"></td>
   </tr>
+</table>
 Optimizer performance comparison of a MobileNet-V2 trained on CIFAR-100. 
 
 ## Limitations
