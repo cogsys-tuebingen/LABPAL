@@ -2,7 +2,7 @@
 Implementation of the optimizer introduced in [USING A ONE DIMENSIONAL PARABOLIC MODEL
 OF THE FULL-BATCH LOSS TO ESTIMATE LEARNING
 RATES DURING TRAINING](https://arxiv.org/pdf/2108.13880.pdf).  
-The optimizer approximates the full-batch loss in negative gradient direction with a one-dimensional parabolic function.
+This optimizer approximates the full-batch loss in negative gradient direction with a one-dimensional parabolic function.  
 This approximation is done rarely and measured with a large batch size.  
 Then, the learning rate is derived form the position of the minimum of the approximation and reused for
  multiple steps. Either SGD or normalized SGD (NSGD) using the unit gradient can be used. For SGD a learning rate is measured, whereas, for NSGD the step size is measured. 
@@ -21,23 +21,22 @@ A closure method is needed for the 'optimizer.step()' method. This closure is gi
 
 ## The performance
 LAPBAL works on the considered classification experiments without any hyper-parameter tuning needed.
-In detail, the training of ResNets, MobileNets and DenseNets on CIFAR-10, CIFAR-100, SVHN and ImageNet was analyzed.
+In detail, the training of ResNets, MobileNets and DenseNets on CIFAR-10, CIFAR-100, SVHN and ImageNet was analyzed.  
 The optimizer automatically infers suitable learning rates and keeps the gradient noise low by increasing the batch size by iteratively sampling batches.
 By the dataset size and the inference batch size a noise adaptation factor is automatically estimated, which adapts the training batch size. 
-The training batch size is sampled iteratively and can thus be higher as the technically possible inference batch size.
+The training batch size is sampled iteratively and, thus, can be higher as the technically possible inference batch size.
+
 
  <table style="width:100%">
   <tr>
-      <td><img src="plots/learning_rate.png" width="40%" ><img src="plots/training_loss.png" width="40%" ></td>
+     <td align=center><img src="plots/learning_rate.png" width="80%" > </td>
+    <td align=center> <img src="plots/training_loss.png" width="80%" ></td>
   </tr>
   <tr>
-    <td><img src="plots/validation_accuracy.png"  width="40%"><img src="plots/test_accuracy.png"  width="40%"></td>
+    <td align=center><img src="plots/validation_accuracy.png"  width="80%"></td>
+   <td align=center><img src="plots/test_accuracy.png"  width="84.1%"></td>
   </tr>
 Optimizer performance comparison of a MobileNet-V2 trained on CIFAR-100. 
-Optimizer performance comparison of a MobileNet-V2 trained on CIFAR-100. 
-
-</table> 
-
 
 ## Limitations
 Our approach can only work if the local parabolic property of the full-batch loss in line direction
