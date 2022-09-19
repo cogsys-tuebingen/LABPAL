@@ -48,5 +48,5 @@ holds. We observed that this is valid for classification tasks. In additional sa
 observed that our approach also works on regression tasks using the squared loss. However, it tends
 to fail if different kinds of losses from significantly different heads of a model are added, as is often
 the case for object detection and object segmentation.
-
+ 
 
